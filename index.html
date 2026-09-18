@@ -1067,7 +1067,7 @@ const ERC20_ABI = [
 // Add your deployed factory contract address here:
 const DEFAULT_FACTORY_ADDRESS = "0x4f3025F1D58a3Ae57e4D5Ff315db7d422F543D36";
 // ---------- BOT Chain Testnet config ----------
-const BOT_CHAIN_TESTNET = {
+const BOT_CHAIN = {
   chainIdDecimal: 677,
   chainIdHex: "0x" + (677).toString(16),
   chainName: "BOT Chain Testnet",
@@ -1078,7 +1078,7 @@ const BOT_CHAIN_TESTNET = {
 
 let provider, signer, userAddress;
 let factoryAddress, factory;
-let chainId, chainNativeSymbol = BOT_CHAIN_TESTNET.nativeCurrency.symbol;
+let chainId, chainNativeSymbol = BOT_CHAIN.nativeCurrency.symbol;
 let currentEstateAddress, estateContract, currentState;
 let tickHandle = null;
 
@@ -1125,12 +1125,12 @@ function showView(name){
 async function ensureBotChainTestnet(){
   const walletMsg = document.getElementById('walletMsg');
   const network = await provider.getNetwork();
-  if(network.chainId === BigInt(BOT_CHAIN_TESTNET.chainIdDecimal)) return true;
+  if(network.chainId === BigInt(BOT_CHAIN.chainIdDecimal)) return true;
   try{
     showMsg(walletMsg, "Switching wallet to BOT Chain Testnet…", "info");
     await window.ethereum.request({
       method: "wallet_switchEthereumChain",
-      params: [{ chainId: BOT_CHAIN_TESTNET.chainIdHex }]
+      params: [{ chainId: BOT_CHAIN.chainIdHex }]
     });
   }catch(switchErr){
     if(switchErr.code === 4902){
@@ -1138,11 +1138,11 @@ async function ensureBotChainTestnet(){
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
           params: [{
-            chainId: BOT_CHAIN_TESTNET.chainIdHex,
-            chainName: BOT_CHAIN_TESTNET.chainName,
-            nativeCurrency: BOT_CHAIN_TESTNET.nativeCurrency,
-            rpcUrls: BOT_CHAIN_TESTNET.rpcUrls,
-            blockExplorerUrls: BOT_CHAIN_TESTNET.blockExplorerUrls
+            chainId: BOT_CHAIN.chainIdHex,
+            chainName: BOT_CHAIN.chainName,
+            nativeCurrency: BOT_CHAIN.nativeCurrency,
+            rpcUrls: BOT_CHAIN.rpcUrls,
+            blockExplorerUrls: BOT_CHAIN.blockExplorerUrls
           }]
         });
       }catch(addErr){
@@ -1171,10 +1171,10 @@ async function connectWallet(){
   userAddress = await signer.getAddress();
   const network = await provider.getNetwork();
   chainId = network.chainId.toString();
-  chainNativeSymbol = BOT_CHAIN_TESTNET.nativeCurrency.symbol;
+  chainNativeSymbol = BOT_CHAIN.nativeCurrency.symbol;
 
   document.getElementById('walletBadge').textContent = short(userAddress);
-  document.getElementById('networkBadge').textContent = BOT_CHAIN_TESTNET.chainName + " · chain " + chainId;
+  document.getElementById('networkBadge').textContent = BOT_CHAIN.chainName + " · chain " + chainId;
 
   // Look for this block inside connectWallet():
   const saved = localStorage.getItem(storageKey());
