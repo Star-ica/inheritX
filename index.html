@@ -131,7 +131,7 @@
       <p class="sub">The InheritX factory contract that tracks every estate on BOT Chain Testnet. Deploy one once, then reuse its address — no need to redeploy for each new estate.</p>
       <label for="factoryAddr">Factory contract address</label>
       <div class="row">
-        <div class="field"><input disabled id="factoryAddr" value="0x29ae255ee79013eCb3655b065E586603E62b2e76" /></div>
+        <div class="field"><input disabled id="factoryAddr" value="0x4f3025F1D58a3Ae57e4D5Ff315db7d422F543D36" /></div>
         <button id="btnUseFactory" class="primary">Use this factory</button>
       </div>
       <div class="msg" id="setupMsg"></div>
@@ -1065,15 +1065,15 @@ const ERC20_ABI = [
   "function allowance(address owner, address spender) view returns (uint256)"
 ];
 // Add your deployed factory contract address here:
-const DEFAULT_FACTORY_ADDRESS = "0x29ae255ee79013eCb3655b065E586603E62b2e76";
+const DEFAULT_FACTORY_ADDRESS = "0x4f3025F1D58a3Ae57e4D5Ff315db7d422F543D36";
 // ---------- BOT Chain Testnet config ----------
 const BOT_CHAIN_TESTNET = {
-  chainIdDecimal: 968,
-  chainIdHex: "0x" + (968).toString(16),
+  chainIdDecimal: 677,
+  chainIdHex: "0x" + (677).toString(16),
   chainName: "BOT Chain Testnet",
   nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
-  rpcUrls: ["https://rpc.bohr.life"],
-  blockExplorerUrls: ["https://scan.bohr.life"]
+  rpcUrls: ["https://rpc.botchain.ai"],
+  blockExplorerUrls: ["https://scan.botchain.ai"]
 };
 
 let provider, signer, userAddress;
@@ -1146,11 +1146,11 @@ async function ensureBotChainTestnet(){
           }]
         });
       }catch(addErr){
-        showMsg(walletMsg, "Please add/switch to BOT Chain Testnet (chain ID 968) manually in your wallet.", "error");
+        showMsg(walletMsg, "Please add/switch to BOT Chain Testnet (chain ID 677) manually in your wallet.", "error");
         return false;
       }
     } else {
-      showMsg(walletMsg, "Please switch to BOT Chain Testnet (chain ID 968) in your wallet.", "error");
+      showMsg(walletMsg, "Please switch to BOT Chain Testnet (chain ID 677) in your wallet.", "error");
       return false;
     }
   }
