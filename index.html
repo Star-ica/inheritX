@@ -115,7 +115,7 @@
 
   <div class="panel">
     <h2>Wallet</h2>
-    <p class="sub">Requires a browser wallet such as MetaMask, connected to BOT Chain Testnet.</p>
+    <p class="sub">Requires a browser wallet such as MetaMask, connected to BOT Chain.</p>
     <div class="row">
       <button id="btnConnectWallet" class="primary">Connect wallet</button>
       <span class="badge" id="walletBadge">not connected</span>
@@ -128,7 +128,7 @@
   <section id="viewSetup">
     <div class="panel">
       <h2>Registry</h2>
-      <p class="sub">The InheritX factory contract that tracks every estate on BOT Chain Testnet. Deploy one once, then reuse its address — no need to redeploy for each new estate.</p>
+      <p class="sub">The InheritX factory contract that tracks every estate on BOT Chain. Deploy one once, then reuse its address — no need to redeploy for each new estate.</p>
       <label for="factoryAddr">Factory contract address</label>
       <div class="row">
         <div class="field"><input disabled id="factoryAddr" value="0x4f3025F1D58a3Ae57e4D5Ff315db7d422F543D36" /></div>
@@ -1066,11 +1066,11 @@ const ERC20_ABI = [
 ];
 // Add your deployed factory contract address here:
 const DEFAULT_FACTORY_ADDRESS = "0x4f3025F1D58a3Ae57e4D5Ff315db7d422F543D36";
-// ---------- BOT Chain Testnet config ----------
+// ---------- BOT Chain  config ----------
 const BOT_CHAIN = {
   chainIdDecimal: 677,
   chainIdHex: "0x" + (677).toString(16),
-  chainName: "BOT Chain Testnet",
+  chainName: "BOT Chain",
   nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
   rpcUrls: ["https://rpc.botchain.ai"],
   blockExplorerUrls: ["https://scan.botchain.ai"]
@@ -1122,12 +1122,12 @@ function showView(name){
 }
 
 // ---------- wallet + network ----------
-async function ensureBotChainTestnet(){
+async function ensureBotChain(){
   const walletMsg = document.getElementById('walletMsg');
   const network = await provider.getNetwork();
   if(network.chainId === BigInt(BOT_CHAIN.chainIdDecimal)) return true;
   try{
-    showMsg(walletMsg, "Switching wallet to BOT Chain Testnet…", "info");
+    showMsg(walletMsg, "Switching wallet to BOT Chain …", "info");
     await window.ethereum.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: BOT_CHAIN.chainIdHex }]
@@ -1146,11 +1146,11 @@ async function ensureBotChainTestnet(){
           }]
         });
       }catch(addErr){
-        showMsg(walletMsg, "Please add/switch to BOT Chain Testnet (chain ID 677) manually in your wallet.", "error");
+        showMsg(walletMsg, "Please add/switch to BOT Chain  (chain ID 677) manually in your wallet.", "error");
         return false;
       }
     } else {
-      showMsg(walletMsg, "Please switch to BOT Chain Testnet (chain ID 677) in your wallet.", "error");
+      showMsg(walletMsg, "Please switch to BOT Chain  (chain ID 677) in your wallet.", "error");
       return false;
     }
   }
@@ -1163,7 +1163,7 @@ async function connectWallet(){
   provider = new ethers.BrowserProvider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
 
-  const ok = await ensureBotChainTestnet();
+  const ok = await ensureBotChain();
   if(!ok) return;
   // re-create provider/signer after a possible network switch
   provider = new ethers.BrowserProvider(window.ethereum);
@@ -1204,7 +1204,7 @@ document.getElementById('btnUseFactory').addEventListener('click', async () => {
     await useFactory(addr);
   }catch(e){
     console.error(e);
-    showMsg(msgEl, "Could not find an InheritX factory contract at that address on BOT Chain Testnet.", "error");
+    showMsg(msgEl, "Could not find an InheritX factory contract at that address on BOT Chain.", "error");
   }
 });
 
